@@ -109,7 +109,7 @@ def train(model_GAN, model_G, model_D, k_D=1, k_G=1,
     loss_list_G = []
     acc_list_D = []
     acc_list_G = []
-    for epoch in range(epochs):
+    for epoch in range(1,epochs+1):
 
         # train D
         set_trainability(model_D, True)
@@ -129,8 +129,8 @@ def train(model_GAN, model_G, model_D, k_D=1, k_G=1,
         acc_list_G.append(acc_G)
 
         if verbose:
-            print('epoch: {} => D_loss: {:.3}, G_loss: {:.3}, acc_D: {:.3}, acc_G: {:.3}'.format(
-                epoch+1, loss_D, loss_G, acc_D, acc_G))
+            print('epoch: {} => D [loss: {:.3f}, acc: {:.3f}]  G [loss: {:.3f}, acc: {:.3f}]'.format(
+                    epoch, loss_D, acc_D, loss_G, acc_G))
             if (epoch) % v_freq == 0:
                 x_real = sample_real_data(n_samples=n_samples, dim=dim_real)
                 x_noise = sample_noise_data(dim=dim_noise)

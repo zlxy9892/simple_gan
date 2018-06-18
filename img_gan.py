@@ -23,9 +23,8 @@ class ImgGAN():
 
         # load the all X_real data from mnist dataset
         (self.X_real_all, y_real_all), (_, _) = keras.datasets.mnist.load_data()
-        self.X_real_all = self.X_real_all / 255.0
-        # self.X_real_all = self.X_real_all / 127.5 - 1
-        self.X_real_all = np.expand_dims(self.X_real_all, axis=3) # rescale the value of images to between 0 and 1
+        self.X_real_all = self.X_real_all / 255.0   # rescale the value of images to between 0 and 1
+        self.X_real_all = np.expand_dims(self.X_real_all, axis=3)
         if num is not None:
             self.X_real_all = self.X_real_all[np.where(y_real_all == num)]
 
@@ -88,7 +87,7 @@ class ImgGAN():
         '''
         Generate a batch of noise data randomly.
         '''
-        return np.random.normal(0, 1, (n_samples, self.dim_noise))
+        return np.random.uniform(-1, 1, (n_samples, self.dim_noise))
     
     def pre_train(self, batch_size):
         n_samples = 1024
@@ -115,7 +114,7 @@ class ImgGAN():
         y_real = np.ones((batch_size, 1))
         y_fake = np.zeros((batch_size, 1))
 
-        for epoch in range(1,epochs):
+        for epoch in range(1,epochs+1):
 
             # training the discriminative model (Model_D)
             self.set_trainability(self.model_D, True)
@@ -142,8 +141,8 @@ class ImgGAN():
             acc_list_G.append(acc_G)
 
             if verbose == True:
-                print('epoch: {} => D [loss: {:.3}, acc: {:.3}] | G [loss: {:.3}, acc: {:.3}]'.format(
-                    epoch+1, loss_D, acc_D, loss_G, acc_G))
+                print('epoch: {} => D [loss: {:.3f}, acc: {:.3f}]  G [loss: {:.3f}, acc: {:.3f}]'.format(
+                    epoch, loss_D, acc_D, loss_G, acc_G))
                 if epoch % v_freq == 0:
                     self.plot_fake_img(num=5, epoch=epoch)
         return loss_list_D, loss_list_G, acc_list_D, acc_list_G
