@@ -171,7 +171,7 @@ if __name__ == '__main__':
     np.random.seed(272)
     img_gan = ImgGAN(dim_noise=2, num=2)
     loss_list_D, loss_list_G, acc_list_D, acc_list_G = img_gan.train(
-        epochs=10000, k_D=1, k_G=10, batch_size=32, verbose=True, v_freq=100)
+        epochs=10000, k_D=10, k_G=100, batch_size=32, verbose=True, v_freq=100)
     
     # save the model D and G
     img_gan.save_model(path_model_d='./model/img_gan_model_D.h5', path_model_g='./model/img_gan_model_G.h5')
