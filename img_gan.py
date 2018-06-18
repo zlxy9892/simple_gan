@@ -49,10 +49,8 @@ class ImgGAN():
         Build the generative model.
         '''
         model = Sequential(name='model_G')
-        model.add(Dense(256, input_shape=(self.dim_noise,), activation='relu'))
-        model.add(BatchNormalization(momentum=0.8))
-        model.add(Dense(512, activation='relu'))
-        model.add(BatchNormalization(momentum=0.8))
+        model.add(Dense(64, input_shape=(self.dim_noise,), activation='relu'))
+        model.add(Dense(32, activation='relu'))
         model.add(Dense(np.prod(self.img_shape), activation='sigmoid')) # ensure all the output values of G is between 0 and 1
         model.add(Reshape(self.img_shape))
         model.summary()
@@ -66,8 +64,8 @@ class ImgGAN():
         '''
         model = Sequential(name='model_D')
         model.add(Flatten(input_shape=self.img_shape))
-        model.add(Dense(512, activation='relu'))
-        model.add(Dense(256, activation='relu'))
+        model.add(Dense(64, activation='relu'))
+        model.add(Dense(32, activation='relu'))
         model.add(Dense(1, activation='sigmoid'))
         model.summary()
         input_img = Input(shape=self.img_shape)
@@ -174,7 +172,7 @@ if __name__ == '__main__':
     np.random.seed(272)
     img_gan = ImgGAN(dim_noise=2, num=2)
     loss_list_D, loss_list_G, acc_list_D, acc_list_G = img_gan.train(
-        epochs=10000, k_D=1, k_G=100, batch_size=32, verbose=True, v_freq=100)
+        epochs=10000, k_D=1, k_G=10, batch_size=32, verbose=True, v_freq=100)
     
     # save the model D and G
     img_gan.save_model(path_model_d='./model/img_gan_model_D.h5', path_model_g='./model/img_gan_model_G.h5')
