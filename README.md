@@ -12,8 +12,12 @@ Simple examples of generative adversarial nets (GAN)
 - h5py >= 2.7.0
 - pandas >= 0.20.1
 
-## 2 Start training
-### 2.1 训练simple_gan.py
+## 2 Training algorithm of GAN
+下图是GAN的训练算法，来源于Goodfellow论文内容，具体可参考[[1]](http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf)
+![gan_alg](./gan_algorithm.png)
+
+## 3 Start training
+### 3.1 训练simple_gan.py
 ```python
 python simple_gan.py
 ```
@@ -25,12 +29,12 @@ python simple_gan.py
 ![losses](./loss_D_and_G.png)
 可以看出，生成模型的损失函数经过训练逐渐降低，同时判别模型的损失缓慢上升，即判别模型越来越难辨别真实数据和假的生成数据.
 
-### 2.2 训练img_gan.py
+### 3.2 训练img_gan.py
 ```python
 python img_gan.py
 ```
 
-## 3 References
+## 4 References
 [1]. [Goodfellow, Ian, et al. "Generative adversarial nets." Advances in neural information processing systems. 2014.](http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf)
 
 [2]. [Keras-GAN (a very good GAN project based on keras in github)](https://github.com/eriklindernoren/Keras-GAN)
